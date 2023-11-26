@@ -21,16 +21,25 @@ class GameMechs
     private:
         char input;
         bool exitFlag;
+        bool loseFlag; // not true if player presses exit key, determine message to display
+        int score;
         
         int boardSizeX;
         int boardSizeY;
 
     public:
+
+        int **boardData; // heap data members
+        
         GameMechs();
         GameMechs(int boardX, int boardY);
+        ~GameMechs(); // destructor
         
         bool getExitFlagStatus();
         void setExitTrue();
+        void setExitFalse();
+        bool getLoseFlagStatus();
+        void setLoseFlag();
 
         char getInput();
         void setInput(char this_input);
@@ -38,6 +47,8 @@ class GameMechs
 
         int getBoardSizeX();
         int getBoardSizeY();
+        int getScore();
+        void incrementScore();
       
 
 };

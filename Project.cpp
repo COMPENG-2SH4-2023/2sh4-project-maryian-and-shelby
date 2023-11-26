@@ -1,17 +1,22 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "GameMechs.h"
 
 
 using namespace std;
 
 #define DELAY_CONST 100000
 
+/* iteration 0:
 #define ROW 10
 #define COLUMN 20
 char board[ROW][COLUMN] = {};
+*/
 
-bool exitFlag;
+GameMechs* pGameMechs = nullptr;
+
+// bool exitFlag;
 
 void Initialize(void);
 void GetInput(void);
@@ -27,7 +32,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(pGameMechs->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -45,17 +50,23 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    exitFlag = false;
+    pGameMechs = new GameMechs();
+    pGameMechs->setExitFalse();
+
 }
 
 void GetInput(void)
 {
-   
+   if (MacUILib_hasChar())
+    {
+        pGameMechs->setInput(MacUILib_getChar());
+    }
 }
 
 void RunLogic(void)
 {
-    
+    pGameMechs->getInput(); // process input character ,choose correct actino
+    pGameMechs->clearInput(); // clear input field ingamemechs
 }
 
 void DrawScreen(void)
@@ -63,35 +74,28 @@ void DrawScreen(void)
     MacUILib_clearScreen();   
     
     // draw border
-    // additional ascii characters (iteration 0)
-    objPos new1(1,2,'A');
-    objPos new2(5,3,'B');
-    objPos new3(3,14,'C');
-    for (int i = 0; i < ROW; i++)
+    for (int i = 0; i < pGameMechs->getBoardSizeY(); i++)
     {
-        for (int j = 0; j < COLUMN; j++) 
+        for (int j = 0; j < pGameMechs->getBoardSizeX(); j++) 
         {
-            if (i == 0 || i == 9)
+            if (i == 0 || i == (pGameMechs->getBoardSizeY() - 1)) 
             {
-                board[i][j] = '#';
+                pGameMechs->boardData[i][j] = 'X';
             }
             
-            else if (j == 0 || j == 19)
+            else if (j == 0 || j == (pGameMechs->getBoardSizeX() - 1))
             {
-                board[i][j] = '#';
+                pGameMechs->boardData[i][j] = 'Y';
             }
             else
             {
-                board[i][j] = ' ';
+                pGameMechs->boardData[i][j] = ' ';
             }
-            board[new1.x][new1.y] = new1.symbol;
-            board[new2.x][new2.y] = new2.symbol;
-            board[new3.x][new3.y] = new3.symbol;
-            MacUILib_printf("%c", board[i][j]);
+            MacUILib_printf("%c", pGameMechs->boardData[i][j]);
         }
         MacUILib_printf("\n");
     } 
-
+    
 }
 
 void LoopDelay(void)
@@ -105,4 +109,7 @@ void CleanUp(void)
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
+
+    pGameMechs->~GameMechs(); // destructor
+    delete pGameMechs; // delete pGameMechs created on heap by us
 }
