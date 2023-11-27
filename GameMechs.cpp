@@ -41,7 +41,6 @@ GameMechs::~GameMechs()
     //delete in reverse order or allocation
     for (int i=0; i < boardSizeX; i++)
 	{
-		// delete[] matrixData[i];
 		if(boardData[i] != NULL)
 		{
 			delete[] boardData[i];

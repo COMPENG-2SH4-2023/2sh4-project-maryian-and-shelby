@@ -8,13 +8,7 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-/* iteration 0:
-#define ROW 10
-#define COLUMN 20
-char board[ROW][COLUMN] = {};
-*/
-
-GameMechs* pGameMechs = nullptr;
+GameMechs* pGameMechs = nullptr; // pointer to GameMechs class
 
 // bool exitFlag;
 
@@ -50,7 +44,7 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    pGameMechs = new GameMechs();
+    pGameMechs = new GameMechs(); // new oject of GameMechs class
     pGameMechs->setExitFalse();
 
 }
@@ -80,12 +74,12 @@ void DrawScreen(void)
         {
             if (i == 0 || i == (pGameMechs->getBoardSizeY() - 1)) 
             {
-                pGameMechs->boardData[i][j] = 'X';
+                pGameMechs->boardData[i][j] = '#';
             }
             
             else if (j == 0 || j == (pGameMechs->getBoardSizeX() - 1))
             {
-                pGameMechs->boardData[i][j] = 'Y';
+                pGameMechs->boardData[i][j] = '#';
             }
             else
             {
