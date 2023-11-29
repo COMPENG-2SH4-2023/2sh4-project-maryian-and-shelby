@@ -2,7 +2,7 @@
 
 GameMechs::GameMechs()
 {
-    boardSizeX = 30;
+	boardSizeX = 30;
     boardSizeY = 15;
 
 	boardData = new int*[boardSizeX];
@@ -15,6 +15,8 @@ GameMechs::GameMechs()
 	for(int i = 0; i < boardSizeX; i++)
 		for(int j = 0; j < boardSizeY; j++)
 			boardData[i][j] = ' ';
+	
+	setExitFalse();
 
 }
 
@@ -33,6 +35,8 @@ GameMechs::GameMechs(int boardX, int boardY)
 	for(int i = 0; i < boardSizeX; i++)
 		for(int j = 0; j < boardSizeY; j++)
 			boardData[i][j] = ' ';
+
+	setExitFalse();
 }
 
 // do you need a destructor?

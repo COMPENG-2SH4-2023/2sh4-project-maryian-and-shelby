@@ -51,8 +51,6 @@ void Initialize(void)
 
     pGameMechs = new GameMechs(); // new oject of GameMechs class
     Snake = new Player(pGameMechs);
-
-    pGameMechs->setExitFalse(); // QUESTION: initialize this in GameMechs???
     
 }
 
@@ -107,12 +105,12 @@ void DrawScreen(void)
             }
             
             
-            /*
+            
             else if (i==tempPos.y && j==tempPos.x)
             {
                 pGameMechs->boardData[i][j] = tempPos.symbol;
             }
-            */
+            
             
             
             else
@@ -120,7 +118,7 @@ void DrawScreen(void)
                 pGameMechs->boardData[i][j] = ' ';
             }
 
-            pGameMechs->boardData[tempPos.y][tempPos.x] = tempPos.symbol;
+            //pGameMechs->boardData[tempPos.y][tempPos.x] = tempPos.symbol;
 
             MacUILib_printf("%c", pGameMechs->boardData[i][j]);
         }
@@ -131,7 +129,7 @@ void DrawScreen(void)
 
 
 
-    MacUILib_printf("Player Direction: %c\n", Snake->direction);
+    // MacUILib_printf("Player Direction: %c\n", Snake->direction);
 
     //MacUILib_printf("Position x: %d  Position y: %d  Character", Position.x, Position.y);
 
