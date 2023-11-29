@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
+#include "Player.h"
 
 
 using namespace std;
@@ -9,6 +10,10 @@ using namespace std;
 #define DELAY_CONST 100000
 
 GameMechs* pGameMechs = nullptr; // pointer to GameMechs class
+
+Player* Snake = nullptr; // temporary
+
+            
 
 // bool exitFlag;
 
@@ -45,27 +50,46 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     pGameMechs = new GameMechs(); // new oject of GameMechs class
-    pGameMechs->setExitFalse();
+    Snake = new Player(pGameMechs);
 
+    pGameMechs->setExitFalse(); // QUESTION: initialize this in GameMechs???
+    
 }
 
-void GetInput(void)
+void GetInput(void) // In tut 12 vid this was more optimized 
 {
    if (MacUILib_hasChar())
     {
         pGameMechs->setInput(MacUILib_getChar());
+        //pGameMechs->getInput(); 
     }
+
+    pGameMechs->getInput(); 
+
 }
 
 void RunLogic(void)
 {
-    pGameMechs->getInput(); // process input character ,choose correct actino
+    //pGameMechs->getInput(); // process input character ,choose correct actino
+
+    Snake->updatePlayerDir();
+    Snake->movePlayer();
+    
     pGameMechs->clearInput(); // clear input field ingamemechs
+
+    
+
+    
+
+
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();   
+
+    objPos tempPos;
+    Snake->getPlayerPos(tempPos);
     
     // draw border
     for (int i = 0; i < pGameMechs->getBoardSizeY(); i++)
@@ -81,14 +105,36 @@ void DrawScreen(void)
             {
                 pGameMechs->boardData[i][j] = '#';
             }
+            
+            
+            /*
+            else if (i==tempPos.y && j==tempPos.x)
+            {
+                pGameMechs->boardData[i][j] = tempPos.symbol;
+            }
+            */
+            
+            
             else
             {
                 pGameMechs->boardData[i][j] = ' ';
             }
+
+            pGameMechs->boardData[tempPos.y][tempPos.x] = tempPos.symbol;
+
             MacUILib_printf("%c", pGameMechs->boardData[i][j]);
         }
+
         MacUILib_printf("\n");
+
     } 
+
+
+
+    MacUILib_printf("Player Direction: %c\n", Snake->direction);
+
+    //MacUILib_printf("Position x: %d  Position y: %d  Character", Position.x, Position.y);
+
     
 }
 
@@ -106,4 +152,5 @@ void CleanUp(void)
 
     pGameMechs->~GameMechs(); // destructor
     delete pGameMechs; // delete pGameMechs created on heap by us
+    delete Snake; // delete the player created by us on the heap
 }

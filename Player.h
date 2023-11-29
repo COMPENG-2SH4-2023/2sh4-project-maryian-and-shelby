@@ -23,9 +23,13 @@ class Player
         void updatePlayerDir();
         void movePlayer();
 
+        char direction; // TEMPORARY TO SEE FSM DIRECITON
+
     private:
         objPos playerPos;   // Upgrade this in iteration 3.       
         enum Dir myDir;
+        enum Dir myPrevDir; // Added in 
+        
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
