@@ -202,3 +202,6 @@ void CleanUp(void)
     delete Snake; // delete the player created by us on the heap
     delete myFood;
 }
+
+
+
