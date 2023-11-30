@@ -53,20 +53,23 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs(); // new oject of GameMechs class
-    Snake = new Player(myGM);
     myFood = new Food();
+    Snake = new Player(myGM, myFood);
+   // myFood = new Food();
     
     // where to generate new food - generateFood() needs player reference (run logic?)
     // will need player reference AFTER player obj is instantiated
     objPos tempFood;
+     
     //objPos tempPos;
     //Snake->getPlayerPos(tempPos);
     //myFood->generateFood(tempPos);
     //myFood->getFoodPos(tempFood);
 
     // generate food needs player reference
-    objPos tempPos(1,1,'o');
-    myFood->generateFood(tempPos); // change to array list operation !!!!!!
+    //objPos tempPos(1,1,'o');
+    objPosArrayList* playerPos = Snake->getPlayerPos();
+    myFood->generateFood(playerPos); // change to array list operation !!!!!!
 
 }
 

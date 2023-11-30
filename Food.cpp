@@ -22,23 +22,43 @@ Food::~Food()
 
 }
 
-void Food::generateFood(objPos blockOff)
+void Food::generateFood(objPosArrayList* &blockOff)
 {
 // The random food generation algorithm should be placed here. (copy from PPA3)
 // blockOff should contain the player position, on which the new food should NOT be generated.
+    
+    bool overlap;
+    int arraysize = blockOff->getSize();
 
-	do
-	{
+    do
+    {
         randx = (rand() % (myGMRef.getBoardSizeX() - 2)) + 1;
-		//MacUILib_printf("\n randx: %d", randx);
-		//MacUILib_printf("board size x: %d", myGMRef->getBoardSizeX());
         randy = (rand() % (myGMRef.getBoardSizeY() - 2)) + 1;
-		MacUILib_printf("\n randy: %d", randy);
-		foodPos.setObjPos(randx, randy, 'o');
-	}
-	while (foodPos.isPosEqual(&blockOff));
+        //foodPos.setObjPos(randx, randy, 'o');
+        overlap = false;
+
+        for (int i = 0; i < arraysize; i++)
+        {
+            objPos pos;
+            blockOff->getElement(pos,i);
+            if(randx == pos.x && randy == pos.y)
+            {
+                overlap = true;
+                break;
+            }
+        }
+        if (!overlap)
+        {
+            foodPos.setObjPos(randx, randy, 'o');
+        }
+    } while (overlap);
+    
+    //while (foodPos.isPosEqual(blockOff[count]));
+    // while (foodPos.x != blockOff.x && foodPos.y != blockOff.y)
+    
+    
 	
-	MacUILib_printf("\n generate food called");
+    //MacUILib_printf("\n generate food called");
 	
 }	
 

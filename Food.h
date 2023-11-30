@@ -24,7 +24,7 @@ class Food
         Food(int x, int y, char symbol);
         ~Food(); // destructor
 
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList* &blockOff); // UPGRADE
         void getFoodPos(objPos &returnPos);
 };
 

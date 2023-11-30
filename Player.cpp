@@ -1,9 +1,10 @@
 #include "Player.h"
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFood)
 {
     mainGameMechsRef = thisGMRef;
+    thisFoodRef = thisFood;
     myDir = STOP;
     myPrevDir = STOP;
 
@@ -86,7 +87,9 @@ void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
     objPos currHead; // holds pos info of current head
+    objPos currFood; // holds pos of current food
     playerPosList->getHeadElement(currHead);
+    thisFoodRef->getFoodPos(currFood);
 
     switch(myDir)
     {
@@ -165,9 +168,22 @@ void Player::movePlayer()
         currHead.x = 1;
     }
 
-    // new current head should be inserted to the head of the list,
-    playerPosList->insertHead(currHead);
-    // then, remove the tail
-    playerPosList->removeTail();
+    // it3: check if newly positioned head overlaps w objPos of food
+    if(currHead.x == currFood.x && currHead.y == currFood.y)
+    {
+        playerPosList->insertHead(currHead);
+        thisFoodRef->generateFood(playerPosList); // issue?
+    }
+    else
+    {
+        // new current head should be inserted to the head of the list,
+        playerPosList->insertHead(currHead);
+        // then, remove the tail
+        playerPosList->removeTail();
+    }
+    
+
+
+
 }
 
