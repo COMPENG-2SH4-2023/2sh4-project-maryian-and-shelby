@@ -12,15 +12,24 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
 
     // Original Starting Player Position 
-    // playerPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
-    //                     mainGameMechsRef->getBoardSizeY()/2,
-    //                     '@');
+    objPos tempPos;
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
+                      mainGameMechsRef->getBoardSizeY()/2,
+                      '@');
 
-    playerPos.setObjPos(5,5,'@');
+    //playerPos.setObjPos(5,5,'@');
 
     // no heap member yet - haven't used new 
 
+    playerPosList = new objPosArrayList();
+    playerPosList->insertHead(tempPos);
 
+    /* for debugging purposes, insert another 4 segments
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    */
 }
 
 
@@ -28,12 +37,15 @@ Player::~Player()
 {
     // delete any heap members here
     // (leave this empty for now: Iteration 1a)
+    delete playerPosList;
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+//objPosArrayList* Player::getPlayerPos(objPosArrayList &playerPosList)
+objPosArrayList* Player::getPlayerPos()
 {
-    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
+    //returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
     // return the reference to the playerPos arrray list
+    return playerPosList;
 }
 
 void Player::updatePlayerDir()
@@ -73,52 +85,54 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-    
+    objPos currHead; // holds pos info of current head
+    playerPosList->getHeadElement(currHead);
+
     switch(myDir)
     {
         case (UP):
             if (myPrevDir != DOWN)
             {
-                playerPos.y--;
+                currHead.y--;
                 myPrevDir = UP;
             }
             else
             {
-                playerPos.y++;
+                currHead.y++;
             }
             break;
         case (DOWN):
             if (myPrevDir != UP)
             {
-                playerPos.y++;
+                currHead.y++;
                 myPrevDir = DOWN;
             }
             else
             {
-                playerPos.y--;
+                currHead.y--;
             }
             break;
             
         case (LEFT):
             if (myPrevDir != RIGHT)
             {
-                playerPos.x--;
+                currHead.x--;
                 myPrevDir = LEFT;
             }
             else
             {
-                playerPos.x++;
+                currHead.x++;
             }
             break;
         case (RIGHT):
             if (myPrevDir != LEFT)
             {
-                playerPos.x++;
+                currHead.x++;
                 myPrevDir = RIGHT;
             }
             else
             {
-                playerPos.x--;
+                currHead.x--;
             }
             break;
 
@@ -131,25 +145,29 @@ void Player::movePlayer()
      // [TODO] : Heed the border wraparound!!!
 
 
-    if (playerPos.y == 0)
+    if (currHead.y == 0)
     {
-        playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
+        currHead.y = mainGameMechsRef->getBoardSizeY() - 2;
     }
     
-    else if (playerPos.y == mainGameMechsRef->getBoardSizeY() - 1)
+    else if (currHead.y == mainGameMechsRef->getBoardSizeY() - 1)
     {
-        playerPos.y = 1;
+        currHead.y = 1;
     }
 
-    if (playerPos.x == 0)
+    if (currHead.x == 0)
     {
-        playerPos.x = mainGameMechsRef->getBoardSizeX() - 2;
+        currHead.x = mainGameMechsRef->getBoardSizeX() - 2;
     }
 
-    else if (playerPos.x == mainGameMechsRef->getBoardSizeX() - 1)
+    else if (currHead.x == mainGameMechsRef->getBoardSizeX() - 1)
     {
-        playerPos.x = 1;
+        currHead.x = 1;
     }
 
+    // new current head should be inserted to the head of the list,
+    playerPosList->insertHead(currHead);
+    // then, remove the tail
+    playerPosList->removeTail();
 }
 

@@ -5,7 +5,7 @@ GameMechs::GameMechs()
 {
 	boardSizeX = 30;
     boardSizeY = 15;
-
+/*
 	boardData = new int*[boardSizeX];
 
 	for(int i = 0; i < boardSizeX; i++)
@@ -16,7 +16,8 @@ GameMechs::GameMechs()
 	for(int i = 0; i < boardSizeX; i++)
 		for(int j = 0; j < boardSizeY; j++)
 			boardData[i][j] = ' ';
-	
+*/
+	input = NULL;	
 	exitFlag = false;
 	loseFlag = false;
 
@@ -28,7 +29,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 {
     boardSizeX = boardX;
     boardSizeY = boardY;
-
+/*
     boardData = new int*[boardSizeX];
 
 	for(int i = 0; i < boardSizeX; i++)
@@ -39,13 +40,12 @@ GameMechs::GameMechs(int boardX, int boardY)
 	for(int i = 0; i < boardSizeX; i++)
 		for(int j = 0; j < boardSizeY; j++)
 			boardData[i][j] = ' ';
-
+*/
 	exitFlag = false;
 	loseFlag = false;
+	input = NULL;
 
-	foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
-
-	srand(time(NULL));
+	//foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
 
 }
 
@@ -53,7 +53,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 GameMechs::~GameMechs()
 {
     //delete in reverse order or allocation
-    for (int i=0; i < boardSizeX; i++)
+    /*for (int i=0; i < boardSizeX; i++)
 	{
 		if(boardData[i] != NULL)
 		{
@@ -61,6 +61,7 @@ GameMechs::~GameMechs()
 		}
 	}
 	delete[] boardData;
+	*/
 }
 
 bool GameMechs::getExitFlagStatus()
