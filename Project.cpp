@@ -59,7 +59,6 @@ void Initialize(void)
     Snake->getPlayerPos(tempPos);
     myGM->generateFood(tempPos);
     myGM->getFoodPos(tempFood);
-    
 
 }
 

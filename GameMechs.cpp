@@ -153,7 +153,6 @@ void GameMechs::generateFood(objPos blockOff)
 		foodPos.setObjPos(randx, randy, 'o');
 	}
 	while (foodPos.isPosEqual(&blockOff) == true);
-//	while (foodPos.x != blockOff.x && foodPos.y != blockOff.y);
 	
 	MacUILib_printf("\n generate food called");
 	
