@@ -17,7 +17,7 @@ class Food
         int randx;
         int randy;
 
-        GameMechs* myGMRef;
+        GameMechs myGMRef;
     
     public:
         Food();

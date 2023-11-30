@@ -96,9 +96,8 @@ void DrawScreen(void)
     objPos tempFood;
     Snake->getPlayerPos(tempPos);
     myFood->getFoodPos(tempFood);
-
-    //myGM->generateFood(tempPos);
-   // myGM->getFoodPos(tempFood);
+    //myFood->generateFood(tempPos);
+    //myFood->getFoodPos(tempFood);
  
    // MacUILib_printf("\n");
    // myGM->boardData[tempFood.y][tempFood.x] = tempFood.symbol;
@@ -157,4 +156,5 @@ void CleanUp(void)
     // remove heap instances
     delete myGM; // delete myGM created on heap by us
     delete Snake; // delete the player created by us on the heap
+    delete myFood;
 }
