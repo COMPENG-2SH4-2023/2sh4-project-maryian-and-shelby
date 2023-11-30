@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h"
 
 
 using namespace std;
@@ -13,7 +14,7 @@ GameMechs* myGM; // pointer to GameMechs class
 
 Player* Snake; // temporary
 
-// Food* pFood = nullptr; // pointer to food class
+Food* myFood;
 
 // bool exitFlag;
 
@@ -51,14 +52,15 @@ void Initialize(void)
 
     myGM = new GameMechs(); // new oject of GameMechs class
     Snake = new Player(myGM);
+    myFood = new Food();
     
     // where to generate new food - generateFood() needs player reference (run logic?)
     // will need player reference AFTER player obj is instantiated
     objPos tempFood;
     objPos tempPos;
     Snake->getPlayerPos(tempPos);
-    myGM->generateFood(tempPos);
-    myGM->getFoodPos(tempFood);
+    myFood->generateFood(tempPos);
+    myFood->getFoodPos(tempFood);
 
 }
 
@@ -93,7 +95,7 @@ void DrawScreen(void)
     objPos tempPos;
     objPos tempFood;
     Snake->getPlayerPos(tempPos);
-    myGM->getFoodPos(tempFood);
+    myFood->getFoodPos(tempFood);
 
     //myGM->generateFood(tempPos);
    // myGM->getFoodPos(tempFood);

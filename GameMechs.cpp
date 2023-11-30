@@ -20,9 +20,7 @@ GameMechs::GameMechs()
 	exitFlag = false;
 	loseFlag = false;
 
-	foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
-
-	srand(time(NULL));
+//	foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
 
 }
 
@@ -137,7 +135,7 @@ void GameMechs::incrementScore()
 }
 
 // iteration 2b: random food generation
-
+/*
 void GameMechs::generateFood(objPos blockOff)
 {
 // The random food generation algorithm should be placed here. (copy from PPA3)
@@ -166,3 +164,4 @@ void GameMechs::getFoodPos(objPos &returnPos)
 	returnPos.setObjPos(foodPos);
 
 }
+*/

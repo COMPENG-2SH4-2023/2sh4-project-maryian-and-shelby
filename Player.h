@@ -32,7 +32,7 @@ class Player
 
     private:
         //objPos playerPos;   // Upgrade this in iteration 3.      
-        objPosArrayList* playerPosList; 
+        // objPosArrayList *playerPosList // upgraded for iteration 3 
         enum Dir myDir;
         enum Dir myPrevDir; // Added in 
         
