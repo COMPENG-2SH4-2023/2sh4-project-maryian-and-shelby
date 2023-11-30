@@ -173,6 +173,7 @@ void Player::movePlayer()
     {
         playerPosList->insertHead(currHead);
         thisFoodRef->generateFood(playerPosList); // issue?
+        mainGameMechsRef->incrementScore();
     }
     else
     {

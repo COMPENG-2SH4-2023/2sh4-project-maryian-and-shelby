@@ -53,6 +53,9 @@ void Food::generateFood(objPosArrayList* &blockOff)
         }
     } while (overlap);
     
+
+
+
     //while (foodPos.isPosEqual(blockOff[count]));
     // while (foodPos.x != blockOff.x && foodPos.y != blockOff.y)
     
