@@ -25,8 +25,14 @@ class Player
 
         char direction; // TEMPORARY TO SEE FSM DIRECITON
 
+        // iteration 3
+        bool checkFoodConsumption();
+        void increasePlayerLength();
+        bool checkSelfCollision();
+
     private:
-        objPos playerPos;   // Upgrade this in iteration 3.       
+        //objPos playerPos;   // Upgrade this in iteration 3.      
+        objPosArrayList* playerPosList; 
         enum Dir myDir;
         enum Dir myPrevDir; // Added in 
         

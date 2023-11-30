@@ -154,7 +154,7 @@ void GameMechs::generateFood(objPos blockOff)
 	}
 	while (foodPos.isPosEqual(&blockOff) == true);
 	
-	MacUILib_printf("\n generate food called");
+	// MacUILib_printf("\n generate food called");
 	
 }	
 
