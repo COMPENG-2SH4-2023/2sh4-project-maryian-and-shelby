@@ -43,11 +43,7 @@ void Player::updatePlayerDir()
     char input = mainGameMechsRef->getInput();
 
     switch(input) // CHANGE THIS INPUT IN RELATION TO GAME MECHANICS
-        {                      
-            case ' ': // exit - can we put this here??
-                mainGameMechsRef->setExitTrue();
-                break;
-            
+        {                          
             case 'w': 
                 myDir = UP;
                 direction = 'U';

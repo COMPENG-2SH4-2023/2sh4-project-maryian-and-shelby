@@ -9,11 +9,11 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-GameMechs* pGameMechs = nullptr; // pointer to GameMechs class
+GameMechs* myGM; // pointer to GameMechs class
 
-Player* Snake = nullptr; // temporary
+Player* Snake; // temporary
 
-            
+// Food* pFood = nullptr; // pointer to food class
 
 // bool exitFlag;
 
@@ -31,7 +31,7 @@ int main(void)
 
     Initialize();
 
-    while(pGameMechs->getExitFlagStatus() == false)  
+    while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -49,31 +49,36 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    pGameMechs = new GameMechs(); // new oject of GameMechs class
-    Snake = new Player(pGameMechs);
+    myGM = new GameMechs(); // new oject of GameMechs class
+    Snake = new Player(myGM);
     
+    // where to generate new food - generateFood() needs player reference (run logic?)
+    // will need player reference AFTER player obj is instantiated
+    objPos tempFood;
+    objPos tempPos;
+    Snake->getPlayerPos(tempPos);
+    myGM->generateFood(tempPos);
+    myGM->getFoodPos(tempFood);
+    
+
 }
 
-void GetInput(void) // In tut 12 vid this was more optimized 
+void GetInput(void)
 {
-   if (MacUILib_hasChar())
-    {
-        pGameMechs->setInput(MacUILib_getChar());
-        //pGameMechs->getInput(); 
-    }
 
-    pGameMechs->getInput(); 
+    myGM->getInput();
+
 
 }
 
 void RunLogic(void)
 {
-    //pGameMechs->getInput(); // process input character ,choose correct actino
+    //myGM->getInput(); // process input character ,choose correct actino
 
     Snake->updatePlayerDir();
     Snake->movePlayer();
     
-    pGameMechs->clearInput(); // clear input field ingamemechs
+    myGM->clearInput(); // clear input field in gamemechs
 
     
 
@@ -87,47 +92,47 @@ void DrawScreen(void)
     MacUILib_clearScreen();   
 
     objPos tempPos;
+    objPos tempFood;
     Snake->getPlayerPos(tempPos);
-    
+    myGM->getFoodPos(tempFood);
+
+    //myGM->generateFood(tempPos);
+   // myGM->getFoodPos(tempFood);
+ 
+   // MacUILib_printf("\n");
+   // myGM->boardData[tempFood.y][tempFood.x] = tempFood.symbol;
+
     // draw border
-    for (int i = 0; i < pGameMechs->getBoardSizeY(); i++)
+    for (int i = 0; i < myGM->getBoardSizeY(); i++)
     {
-        for (int j = 0; j < pGameMechs->getBoardSizeX(); j++) 
+        for (int j = 0; j < myGM->getBoardSizeX(); j++) 
         {
-            if (i == 0 || i == (pGameMechs->getBoardSizeY() - 1)) 
+            if (i == 0 || i == (myGM->getBoardSizeY() - 1) || j == 0 || j == (myGM->getBoardSizeX() - 1)) 
             {
-                pGameMechs->boardData[i][j] = '#';
+                myGM->boardData[i][j] = '#';
             }
-            
-            else if (j == 0 || j == (pGameMechs->getBoardSizeX() - 1))
-            {
-                pGameMechs->boardData[i][j] = '#';
-            }
-            
-            
-            
+                        
             else if (i==tempPos.y && j==tempPos.x)
             {
-                pGameMechs->boardData[i][j] = tempPos.symbol;
+                myGM->boardData[i][j] = tempPos.symbol;
             }
-            
-            
+
+            else if (i==tempFood.y && j==tempFood.x)
+            {
+                myGM->boardData[i][j] = tempFood.symbol;
+            }
             
             else
             {
-                pGameMechs->boardData[i][j] = ' ';
+                myGM->boardData[i][j] = ' ';
             }
 
-            //pGameMechs->boardData[tempPos.y][tempPos.x] = tempPos.symbol;
-
-            MacUILib_printf("%c", pGameMechs->boardData[i][j]);
+            MacUILib_printf("%c", myGM->boardData[i][j]);
         }
 
         MacUILib_printf("\n");
 
     } 
-
-
 
     // MacUILib_printf("Player Direction: %c\n", Snake->direction);
 
@@ -148,7 +153,7 @@ void CleanUp(void)
   
     MacUILib_uninit();
 
-    pGameMechs->~GameMechs(); // destructor
-    delete pGameMechs; // delete pGameMechs created on heap by us
+    // remove heap instances
+    delete myGM; // delete myGM created on heap by us
     delete Snake; // delete the player created by us on the heap
 }

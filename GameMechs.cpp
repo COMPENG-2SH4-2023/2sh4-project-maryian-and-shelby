@@ -1,4 +1,5 @@
 #include "GameMechs.h"
+#include "MacUILib.h"
 
 GameMechs::GameMechs()
 {
@@ -16,7 +17,12 @@ GameMechs::GameMechs()
 		for(int j = 0; j < boardSizeY; j++)
 			boardData[i][j] = ' ';
 	
-	setExitFalse();
+	exitFlag = false;
+	loseFlag = false;
+
+	foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
+
+	srand(time(NULL));
 
 }
 
@@ -36,7 +42,13 @@ GameMechs::GameMechs(int boardX, int boardY)
 		for(int j = 0; j < boardSizeY; j++)
 			boardData[i][j] = ' ';
 
-	setExitFalse();
+	exitFlag = false;
+	loseFlag = false;
+
+	foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
+
+	srand(time(NULL));
+
 }
 
 // do you need a destructor?
@@ -65,7 +77,15 @@ bool GameMechs::getLoseFlagStatus()
 
 char GameMechs::getInput()
 {
-    return input;
+    if (MacUILib_hasChar())
+	{
+		input = MacUILib_getChar();
+	}
+	else if(input == ' ')
+	{
+		exitFlag = true;
+	}
+	return input;
 }
 
 int GameMechs::getBoardSizeX()
@@ -101,6 +121,7 @@ void GameMechs::setInput(char this_input)
 void GameMechs::setLoseFlag()
 {
     loseFlag = true;
+	//MacUILib_printf("You lose :( Game Over."); // debug for lose flag
 }
 
 void GameMechs::clearInput()
@@ -111,5 +132,38 @@ void GameMechs::clearInput()
 void GameMechs::incrementScore()
 {
     score++;
+	//MacUILib_printf("Score has been incremented"); // debug for incscore
     // may need to change to allow score to increase by more than 1
+}
+
+// iteration 2b: random food generation
+
+void GameMechs::generateFood(objPos blockOff)
+{
+// The random food generation algorithm should be placed here. (copy from PPA3)
+// blockOff should contain the player position, on which the new food should NOT be generated.
+
+	do
+	{
+		randx = (rand() % (boardSizeX - 2)) + 1;
+		//MacUILib_printf("\n %d", randx);
+		
+		randy = (rand() % (boardSizeY - 2)) + 1;
+		//MacUILib_printf("\n %d", randy);
+		foodPos.setObjPos(randx, randy, 'o');
+	}
+	while (foodPos.isPosEqual(&blockOff) == true);
+//	while (foodPos.x != blockOff.x && foodPos.y != blockOff.y);
+	
+	MacUILib_printf("\n generate food called");
+	
+}	
+
+void GameMechs::getFoodPos(objPos &returnPos)
+{
+// Getter method for obtaining the current position of the food.
+// Return value is written into the returnPos via pass by reference.
+
+	returnPos.setObjPos(foodPos);
+
 }

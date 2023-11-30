@@ -23,8 +23,11 @@ class GameMechs
         bool exitFlag;
         bool loseFlag; // not true if player presses exit key, determine message to display
         int score;
+
         objPos foodPos;
-        
+        int randx;
+        int randy;
+
         int boardSizeX;
         int boardSizeY;
 
@@ -53,11 +56,7 @@ class GameMechs
 
         // iteration 2b
         void generateFood(objPos blockOff);
-        // The random food generation algorithm should be placed here. (copy from PPA3)
-        // blockOff should contain the player position, on which the new food should NOT be generated.
         void getFoodPos(objPos &returnPos);
-        // Getter method for obtaining the current position of the food.
-        // Return value is written into the returnPos via pass by reference.
 };
 
 #endif
