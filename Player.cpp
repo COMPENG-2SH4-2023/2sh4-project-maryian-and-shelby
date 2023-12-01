@@ -91,103 +91,108 @@ void Player::movePlayer()
     playerPosList->getHeadElement(currHead);
     thisFoodRef->getFoodPos(currFood);
 
-    switch(myDir)
-    {
-        case (UP):
-            if (myPrevDir != DOWN)
-            {
-                currHead.y--;
-                myPrevDir = UP;
-            }
-            else
-            {
-                currHead.y++;
-            }
-            break;
-        case (DOWN):
-            if (myPrevDir != UP)
-            {
-                currHead.y++;
-                myPrevDir = DOWN;
-            }
-            else
-            {
-                currHead.y--;
-            }
-            break;
-            
-        case (LEFT):
-            if (myPrevDir != RIGHT)
-            {
-                currHead.x--;
-                myPrevDir = LEFT;
-            }
-            else
-            {
-                currHead.x++;
-            }
-            break;
-        case (RIGHT):
-            if (myPrevDir != LEFT)
-            {
-                currHead.x++;
-                myPrevDir = RIGHT;
-            }
-            else
-            {
-                currHead.x--;
-            }
-            break;
-
-
-       
-        default:
-            break;
-    }
-
-     // [TODO] : Heed the border wraparound!!!
-
-
-    if (currHead.y == 0)
-    {
-        currHead.y = mainGameMechsRef->getBoardSizeY() - 2;
-    }
-    
-    else if (currHead.y == mainGameMechsRef->getBoardSizeY() - 1)
-    {
-        currHead.y = 1;
-    }
-
-    if (currHead.x == 0)
-    {
-        currHead.x = mainGameMechsRef->getBoardSizeX() - 2;
-    }
-
-    else if (currHead.x == mainGameMechsRef->getBoardSizeX() - 1)
-    {
-        currHead.x = 1;
-    }
-    // feature 3: check snake self suicide
-    
     if (checkSelfCollision())
     {
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
     }
 
-    // it3: check if newly positioned head overlaps w objPos of food
-    if(currHead.x == currFood.x && currHead.y == currFood.y)
-    {
-        playerPosList->insertHead(currHead);
-        thisFoodRef->generateFood(playerPosList); // issue?
-        mainGameMechsRef->incrementScore();
-    }
     else
     {
-        // new current head should be inserted to the head of the list,
-        playerPosList->insertHead(currHead);
-        // then, remove the tail
-        playerPosList->removeTail();
+        switch(myDir)
+        {
+            case (UP):
+                if (myPrevDir != DOWN)
+                {
+                    currHead.y--;
+                    myPrevDir = UP;
+                }
+                else
+                {
+                    currHead.y++;
+                }
+                break;
+            case (DOWN):
+                if (myPrevDir != UP)
+                {
+                    currHead.y++;
+                    myPrevDir = DOWN;
+                }
+                else
+                {
+                    currHead.y--;
+                }
+                break;
+                
+            case (LEFT):
+                if (myPrevDir != RIGHT)
+                {
+                    currHead.x--;
+                    myPrevDir = LEFT;
+                }
+                else
+                {
+                    currHead.x++;
+                }
+                break;
+            case (RIGHT):
+                if (myPrevDir != LEFT)
+                {
+                    currHead.x++;
+                    myPrevDir = RIGHT;
+                }
+                else
+                {
+                    currHead.x--;
+                }
+                break;
+
+
+        
+            default:
+                break;
+        }
+
+        // [TODO] : Heed the border wraparound!!!
+
+
+        if (currHead.y == 0)
+        {
+            currHead.y = mainGameMechsRef->getBoardSizeY() - 2;
+        }
+        
+        else if (currHead.y == mainGameMechsRef->getBoardSizeY() - 1)
+        {
+            currHead.y = 1;
+        }
+
+        if (currHead.x == 0)
+        {
+            currHead.x = mainGameMechsRef->getBoardSizeX() - 2;
+        }
+
+        else if (currHead.x == mainGameMechsRef->getBoardSizeX() - 1)
+        {
+            currHead.x = 1;
+        }
+        // feature 3: check snake self suicide
+        
+        
+
+        // it3: check if newly positioned head overlaps w objPos of food
+        if(currHead.x == currFood.x && currHead.y == currFood.y)
+        {
+            playerPosList->insertHead(currHead);
+            thisFoodRef->generateFood(playerPosList); // issue?
+            mainGameMechsRef->incrementScore();
+        }
+        else
+        {
+            // new current head should be inserted to the head of the list,
+            playerPosList->insertHead(currHead);
+            // then, remove the tail
+            playerPosList->removeTail();
+        }
     }
     
 }
