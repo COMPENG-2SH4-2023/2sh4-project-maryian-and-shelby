@@ -167,6 +167,13 @@ void Player::movePlayer()
     {
         currHead.x = 1;
     }
+    // feature 3: check snake self suicide
+    
+    if (checkSelfCollision())
+    {
+        mainGameMechsRef->setLoseFlag();
+        mainGameMechsRef->setExitTrue();
+    }
 
     // it3: check if newly positioned head overlaps w objPos of food
     if(currHead.x == currFood.x && currHead.y == currFood.y)
@@ -183,8 +190,25 @@ void Player::movePlayer()
         playerPosList->removeTail();
     }
     
-
-
-
 }
 
+bool Player::checkSelfCollision()
+{
+    int arraysize = playerPosList->getSize();
+
+    objPos headPos;
+    playerPosList->getHeadElement(headPos);
+
+    for (int i = 1; i < arraysize; i++) // start at 1 because head is at 0
+    {
+        objPos bodySegment;
+        playerPosList->getElement(bodySegment, i);
+
+        if (headPos.isPosEqual(&bodySegment))
+        {
+            return true;
+        }
+    }
+    return false;
+
+}

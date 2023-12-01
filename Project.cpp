@@ -174,7 +174,7 @@ void DrawScreen(void)
     MacUILib_printf("Score: %d\n", myGM->getScore());
 
     //MacUILib_printf("Position x: %d  Position y: %d  Character", Position.x, Position.y);
-    MacUILib_printf("Player positions: \n");
+    MacUILib_printf("\n Player positions: \n");
     for(int l = 0; l < playerBody->getSize();l++)
     {
         playerBody->getElement(tempBody, l);
@@ -183,6 +183,15 @@ void DrawScreen(void)
     MacUILib_printf("\n Food Pos: <%d, %d> ",
                     tempFood.x, tempFood.y);
     
+    
+    if(myGM->getLoseFlagStatus() == true)
+    {
+        MacUILib_printf("\n You lose :( Game Over.");
+    }
+    else if(myGM->getExitFlagStatus() == true)
+    {
+        MacUILib_printf("\n You have exited the game.");
+    }
 }
 
 void LoopDelay(void)
@@ -193,7 +202,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    
   
     MacUILib_uninit();
 

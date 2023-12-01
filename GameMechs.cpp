@@ -104,7 +104,7 @@ int GameMechs::getScore()
 
 void GameMechs::setExitTrue()
 {
-    exitFlag = true;
+	exitFlag = true;
 }
 
 void GameMechs::setExitFalse()
@@ -119,8 +119,7 @@ void GameMechs::setInput(char this_input)
 
 void GameMechs::setLoseFlag()
 {
-    loseFlag = true;
-	//MacUILib_printf("You lose :( Game Over."); // debug for lose flag
+	loseFlag = true;
 }
 
 void GameMechs::clearInput()
@@ -135,34 +134,3 @@ void GameMechs::incrementScore()
     // may need to change to allow score to increase by more than 1
 }
 
-// iteration 2b: random food generation
-/*
-void GameMechs::generateFood(objPos blockOff)
-{
-// The random food generation algorithm should be placed here. (copy from PPA3)
-// blockOff should contain the player position, on which the new food should NOT be generated.
-
-	do
-	{
-		randx = (rand() % (boardSizeX - 2)) + 1;
-		//MacUILib_printf("\n %d", randx);
-		
-		randy = (rand() % (boardSizeY - 2)) + 1;
-		//MacUILib_printf("\n %d", randy);
-		foodPos.setObjPos(randx, randy, 'o');
-	}
-	while (foodPos.isPosEqual(&blockOff) == true);
-	
-	// MacUILib_printf("\n generate food called");
-	
-}	
-
-void GameMechs::getFoodPos(objPos &returnPos)
-{
-// Getter method for obtaining the current position of the food.
-// Return value is written into the returnPos via pass by reference.
-
-	returnPos.setObjPos(foodPos);
-
-}
-*/
