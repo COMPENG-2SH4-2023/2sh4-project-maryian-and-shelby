@@ -16,7 +16,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFood)
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
                       mainGameMechsRef->getBoardSizeY()/2,
-                      '@');
+                      '*');
 
     //playerPos.setObjPos(5,5,'@');
 
