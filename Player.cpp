@@ -8,73 +8,48 @@ Player::Player(GameMechs* thisGMRef, Food* thisFood)
     myDir = STOP;
     myPrevDir = STOP;
 
-    direction = 'N';
-
-    // more actions to be included
-
     // Original Starting Player Position 
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
                       mainGameMechsRef->getBoardSizeY()/2,
                       '*');
 
-    //playerPos.setObjPos(5,5,'@');
-
-    // no heap member yet - haven't used new 
-
-    playerPosList = new objPosArrayList();
-    playerPosList->insertHead(tempPos);
-
-    /* for debugging purposes, insert another 4 segments
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    */
+    playerPosList = new objPosArrayList(); // Create space on heap for our snake
+    playerPosList->insertHead(tempPos);    // Insert snake head at the starting position declared
 }
 
 
 Player::~Player()
 {
-    // delete any heap members here
-    // (leave this empty for now: Iteration 1a)
-    delete playerPosList;
+    delete playerPosList;  // Deallocate memory created for snake
 }
 
-//objPosArrayList* Player::getPlayerPos(objPosArrayList &playerPosList)
+
 objPosArrayList* Player::getPlayerPos()
 {
-    //returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
-    // return the reference to the playerPos arrray list
-    return playerPosList;
+    return playerPosList; 
 }
 
 void Player::updatePlayerDir()
 {
-    // PPA3 input processing logic
+    char input = mainGameMechsRef->getInput(); 
 
-    char input = mainGameMechsRef->getInput();
-
-    switch(input) // CHANGE THIS INPUT IN RELATION TO GAME MECHANICS
+    switch(input) // Input received from keybaord from the game mechanics class, change direction accordingly 
         {                          
             case 'w': 
                 myDir = UP;
-                direction = 'U';
                 break;
 
             case 's':
                 myDir = DOWN;
-                direction = 'D';
                 break;
 
             case 'a': 
                 myDir = LEFT;
-                direction = 'L';
                 break;
 
             case 'd':
                 myDir = RIGHT;
-                direction = 'R';
                 break;
             
             default:
@@ -85,19 +60,18 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-    // PPA3 Finite State Machine logic
-    objPos currHead; // holds pos info of current head
-    objPos currFood; // holds pos of current food
+    objPos currHead; // will hold pos info of current head
+    objPos currFood; // will hold pos of current food
     playerPosList->getHeadElement(currHead);
     thisFoodRef->getFoodPos(currFood);
 
-    if (checkSelfCollision())
+    if (checkSelfCollision()) // If snake collied with itself set proper end game conditions
     {
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
     }
 
-    else
+    else // Move snake head
     {
         switch(myDir)
         {
@@ -153,8 +127,7 @@ void Player::movePlayer()
                 break;
         }
 
-        // [TODO] : Heed the border wraparound!!!
-
+        // Heed the border wraparound!
 
         if (currHead.y == 0)
         {
@@ -175,22 +148,20 @@ void Player::movePlayer()
         {
             currHead.x = 1;
         }
-        // feature 3: check snake self suicide
-        
         
 
         // it3: check if newly positioned head overlaps w objPos of food
-        if(currHead.x == currFood.x && currHead.y == currFood.y)
+        if(currHead.x == currFood.x && currHead.y == currFood.y) // Add to snake length 
         {
             playerPosList->insertHead(currHead);
             thisFoodRef->generateFood(playerPosList); // issue?
             mainGameMechsRef->incrementScore();
         }
-        else
+        else // Move snake normally
         {
             // new current head should be inserted to the head of the list,
             playerPosList->insertHead(currHead);
-            // then, remove the tail
+            // then remove the tail
             playerPosList->removeTail();
         }
     }

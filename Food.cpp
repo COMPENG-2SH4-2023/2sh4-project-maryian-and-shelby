@@ -34,7 +34,6 @@ void Food::generateFood(objPosArrayList* &blockOff)
     {
         randx = (rand() % (myGMRef.getBoardSizeX() - 2)) + 1;
         randy = (rand() % (myGMRef.getBoardSizeY() - 2)) + 1;
-        //foodPos.setObjPos(randx, randy, 'o');
         overlap = false;
 
         for (int i = 0; i < arraysize; i++)
@@ -53,16 +52,6 @@ void Food::generateFood(objPosArrayList* &blockOff)
         }
     } while (overlap);
     
-
-
-
-    //while (foodPos.isPosEqual(blockOff[count]));
-    // while (foodPos.x != blockOff.x && foodPos.y != blockOff.y)
-    
-    
-	
-    //MacUILib_printf("\n generate food called");
-	
 }	
 
 void Food::getFoodPos(objPos &returnPos)
