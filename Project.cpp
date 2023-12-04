@@ -6,15 +6,26 @@
 #include "Player.h"
 #include "Food.h"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 165ce93b1195e1f417a1d8ef50d5edcd0be15825
 using namespace std;
 
 #define DELAY_CONST 100000
 
 GameMechs* myGM; // pointer to GameMechs class
+<<<<<<< HEAD
 
 Player* Snake; // pointer to Player class
 
 Food* myFood; /// pointer to Food class
+=======
+Food* myFood;  // pointer to Food Class
+Player* Snake; // pointer to Player Class
+
+// bool exitFlag;
+>>>>>>> 165ce93b1195e1f417a1d8ef50d5edcd0be15825
 
 void Initialize(void);
 void GetInput(void);
@@ -22,7 +33,6 @@ void RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
-
 
 
 int main(void)
@@ -42,25 +52,25 @@ int main(void)
 
 }
 
-
 void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
 
     myGM = new GameMechs(); // new object of GameMechs class
-    myFood = new Food();
-    Snake = new Player(myGM, myFood);
+    myFood = new Food();    // new object of Food Class
+    Snake = new Player(myGM, myFood);   // new object of Snake class, takes in the game mech and food class objects
 
-    objPos tempFood;
-    objPosArrayList* playerPos = Snake->getPlayerPos(); // upgraded to array list
-    myFood->generateFood(playerPos); // block off player pos (all snake body segment positions)
+    objPosArrayList* playerPos = Snake->getPlayerPos();  // get reference of player position list 
+    myFood->generateFood(playerPos); // generates food item where the snake isn't
 
 }
 
 void GetInput(void)
 {
-    myGM->getInput(); 
+
+    myGM->getInput();
+
 }
 
 void RunLogic(void)
@@ -153,7 +163,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    //MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    // Leave last screen on the board before shutting down the program
   
     MacUILib_uninit();
 
