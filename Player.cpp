@@ -5,12 +5,10 @@ Player::Player(GameMechs* thisGMRef, Food* thisFood)
 {
     mainGameMechsRef = thisGMRef;
     thisFoodRef = thisFood;
+    
     myDir = STOP;
     myPrevDir = STOP;
-
     direction = 'N';
-
-    // more actions to be included
 
     // Original Starting Player Position 
     objPos tempPos;
@@ -32,7 +30,6 @@ Player::Player(GameMechs* thisGMRef, Food* thisFood)
     playerPosList->insertHead(tempPos);
     */
 }
-
 
 Player::~Player()
 {
@@ -91,7 +88,7 @@ void Player::movePlayer()
     playerPosList->getHeadElement(currHead);
     thisFoodRef->getFoodPos(currFood);
 
-    if (checkSelfCollision())
+    if (checkSelfCollision()) // check for collision before action
     {
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
@@ -147,14 +144,11 @@ void Player::movePlayer()
                 }
                 break;
 
-
-        
             default:
                 break;
         }
 
         // [TODO] : Heed the border wraparound!!!
-
 
         if (currHead.y == 0)
         {
@@ -175,15 +169,12 @@ void Player::movePlayer()
         {
             currHead.x = 1;
         }
-        // feature 3: check snake self suicide
-        
-        
 
-        // it3: check if newly positioned head overlaps w objPos of food
+        // iteration 3: check if newly positioned head overlaps w objPos of food
         if(currHead.x == currFood.x && currHead.y == currFood.y)
         {
             playerPosList->insertHead(currHead);
-            thisFoodRef->generateFood(playerPosList); // issue?
+            thisFoodRef->generateFood(playerPosList);
             mainGameMechsRef->incrementScore();
         }
         else
@@ -209,11 +200,10 @@ bool Player::checkSelfCollision()
         objPos bodySegment;
         playerPosList->getElement(bodySegment, i);
 
-        if (headPos.isPosEqual(&bodySegment))
+        if (headPos.isPosEqual(&bodySegment)) // check head collision with each body segment
         {
             return true;
         }
     }
     return false;
-
 }

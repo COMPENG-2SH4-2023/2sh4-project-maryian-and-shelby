@@ -2,7 +2,6 @@
 #define GAMEMECHS_H
 
 #include <cstdlib>
-#include <time.h>
 
 #include "objPos.h"
 #include "objPosArrayList.h"
@@ -12,16 +11,11 @@ using namespace std;
 
 class GameMechs
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
+    
     private:
         char input;
         bool exitFlag;
-        bool loseFlag; // not true if player presses exit key, determine message to display
+        bool loseFlag; 
         int score;
 
         objPos foodPos;
@@ -32,12 +26,10 @@ class GameMechs
         int boardSizeY;
 
     public:
-
-        int **boardData; // heap data members
         
         GameMechs();
         GameMechs(int boardX, int boardY);
-        ~GameMechs(); // destructor
+        ~GameMechs();
         
         bool getExitFlagStatus();
         void setExitTrue();
@@ -54,9 +46,6 @@ class GameMechs
         int getScore();
         void incrementScore();
 
-        // iteration 2b
-        void generateFood(objPos blockOff);
-        void getFoodPos(objPos &returnPos);
 };
 
 #endif

@@ -6,7 +6,7 @@
 Food::Food()
 {
     
-    foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
+    foodPos.setObjPos(-1, -1, 'o'); 
     srand(time(NULL));
 }
 
@@ -24,52 +24,35 @@ Food::~Food()
 
 void Food::generateFood(objPosArrayList* &blockOff)
 {
-// The random food generation algorithm should be placed here. (copy from PPA3)
-// blockOff should contain the player position, on which the new food should NOT be generated.
-    
+ 
     bool overlap;
     int arraysize = blockOff->getSize();
 
     do
     {
-        randx = (rand() % (myGMRef.getBoardSizeX() - 2)) + 1;
-        randy = (rand() % (myGMRef.getBoardSizeY() - 2)) + 1;
-        //foodPos.setObjPos(randx, randy, 'o');
+        randx = (rand() % (myGMRef.getBoardSizeX() - 2)) + 1; // random x coord
+        randy = (rand() % (myGMRef.getBoardSizeY() - 2)) + 1; // random y coord
         overlap = false;
 
-        for (int i = 0; i < arraysize; i++)
+        for (int i = 0; i < arraysize; i++) // loop through each body segment of snake
         {
             objPos pos;
             blockOff->getElement(pos,i);
-            if(randx == pos.x && randy == pos.y)
+            if(randx == pos.x && randy == pos.y) // check for overlap
             {
                 overlap = true;
                 break;
             }
         }
-        if (!overlap)
+        if (!overlap) // if no overlap, generate food
         {
             foodPos.setObjPos(randx, randy, 'o');
         }
     } while (overlap);
     
-
-
-
-    //while (foodPos.isPosEqual(blockOff[count]));
-    // while (foodPos.x != blockOff.x && foodPos.y != blockOff.y)
-    
-    
-	
-    //MacUILib_printf("\n generate food called");
-	
 }	
 
 void Food::getFoodPos(objPos &returnPos)
 {
-// Getter method for obtaining the current position of the food.
-// Return value is written into the returnPos via pass by reference.
-
 	returnPos.setObjPos(foodPos);
-
 }

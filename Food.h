@@ -3,7 +3,6 @@
 
 #include <cstdlib>
 #include <time.h>
-
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include "GameMechs.h"
@@ -22,9 +21,9 @@ class Food
     public:
         Food();
         Food(int x, int y, char symbol);
-        ~Food(); // destructor
+        ~Food();
 
-        void generateFood(objPosArrayList* &blockOff); // UPGRADE
+        void generateFood(objPosArrayList* &blockOff);
         void getFoodPos(objPos &returnPos);
 };
 

@@ -5,23 +5,10 @@ GameMechs::GameMechs()
 {
 	boardSizeX = 30;
     boardSizeY = 15;
-/*
-	boardData = new int*[boardSizeX];
 
-	for(int i = 0; i < boardSizeX; i++)
-	{
-		boardData[i] = new int[boardSizeY];
-	}
-
-	for(int i = 0; i < boardSizeX; i++)
-		for(int j = 0; j < boardSizeY; j++)
-			boardData[i][j] = ' ';
-*/
 	input = NULL;	
 	exitFlag = false;
 	loseFlag = false;
-
-//	foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
 
 }
 
@@ -29,44 +16,22 @@ GameMechs::GameMechs(int boardX, int boardY)
 {
     boardSizeX = boardX;
     boardSizeY = boardY;
-/*
-    boardData = new int*[boardSizeX];
 
-	for(int i = 0; i < boardSizeX; i++)
-	{
-		boardData[i] = new int[boardSizeY];
-	}
-
-	for(int i = 0; i < boardSizeX; i++)
-		for(int j = 0; j < boardSizeY; j++)
-			boardData[i][j] = ' ';
-*/
+	input = NULL;
 	exitFlag = false;
 	loseFlag = false;
-	input = NULL;
-
-	//foodPos.setObjPos(-1, -1, 'o'); // initialize foodPos outside of gameboard
 
 }
 
 // do you need a destructor?
 GameMechs::~GameMechs()
 {
-    //delete in reverse order or allocation
-    /*for (int i=0; i < boardSizeX; i++)
-	{
-		if(boardData[i] != NULL)
-		{
-			delete[] boardData[i];
-		}
-	}
-	delete[] boardData;
-	*/
+    
 }
 
 bool GameMechs::getExitFlagStatus()
 {
-    return exitFlag;
+    return exitFlag; // game exited by user
 }
 
 bool GameMechs::getLoseFlagStatus()
@@ -80,7 +45,7 @@ char GameMechs::getInput()
 	{
 		input = MacUILib_getChar();
 	}
-	else if(input == ' ')
+	else if(input == ' ') // exit key ' '
 	{
 		exitFlag = true;
 	}
@@ -130,7 +95,5 @@ void GameMechs::clearInput()
 void GameMechs::incrementScore()
 {
     score++;
-	//MacUILib_printf("Score has been incremented"); // debug for incscore
-    // may need to change to allow score to increase by more than 1
 }
 
