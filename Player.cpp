@@ -8,7 +8,6 @@ Player::Player(GameMechs* thisGMRef, Food* thisFood)
     
     myDir = STOP;
     myPrevDir = STOP;
-    direction = 'N';
 
     // Original Starting Player Position 
     objPos tempPos;

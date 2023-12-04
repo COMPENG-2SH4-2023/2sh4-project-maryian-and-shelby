@@ -23,11 +23,7 @@ class Food
         Food(int x, int y, char symbol);
         ~Food();
 
-<<<<<<< HEAD
-        void generateFood(objPosArrayList* &blockOff);
-=======
         void generateFood(objPosArrayList* &blockOff); 
->>>>>>> 165ce93b1195e1f417a1d8ef50d5edcd0be15825
         void getFoodPos(objPos &returnPos);
 };
 

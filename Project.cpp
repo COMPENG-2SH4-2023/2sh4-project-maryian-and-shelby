@@ -6,26 +6,15 @@
 #include "Player.h"
 #include "Food.h"
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 165ce93b1195e1f417a1d8ef50d5edcd0be15825
 using namespace std;
 
 #define DELAY_CONST 100000
 
 GameMechs* myGM; // pointer to GameMechs class
-<<<<<<< HEAD
-
-Player* Snake; // pointer to Player class
-
-Food* myFood; /// pointer to Food class
-=======
 Food* myFood;  // pointer to Food Class
 Player* Snake; // pointer to Player Class
 
 // bool exitFlag;
->>>>>>> 165ce93b1195e1f417a1d8ef50d5edcd0be15825
 
 void Initialize(void);
 void GetInput(void);
@@ -147,11 +136,11 @@ void DrawScreen(void)
     // exit/lose statements
     if(myGM->getLoseFlagStatus() == true)
     {
-        MacUILib_printf("\n You lose :( Game Over");
+        MacUILib_printf("\nGame Over :( \n");
     }
     else if(myGM->getExitFlagStatus() == true)
     {
-        MacUILib_printf("\n You have exited the game. \n");
+        MacUILib_printf("\nYou have exited the game. \n");
     }
 }
 
